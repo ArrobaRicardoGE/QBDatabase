@@ -91,10 +91,15 @@ async function SuperBowlEdicion(sql, edicion, callback){
     let info = await pool.query(queries.IndivSB(edicion));
     info = info.recordsets[0][0];
     
+    if(info === undefined){
+        callback();
+        return;
+    }
     anio = parseInt(edicion) + 1965;
     vis = info.clave_visitante;
     loc = info.clave_local;
 
+    
     pool = new sql.Request();
     let arrVis = await pool.query(queries.IndivSBQB(anio, vis));
     arrVis = arrVis.recordsets[0];
