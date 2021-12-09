@@ -89,6 +89,30 @@ def colleges():
     return flask.render_template("colleges.html", title="Universidades")
 
 
+@bp.route("/colleges/<int:college_id>", methods=["GET"])
+def college_info(college_id):
+    data = {
+        "college_id": college_id,
+        "name": "LSU",
+        "state": "Lousiana",
+        "quarterbacks": [
+            {
+                "qbid": 13,
+                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+                "name": "Carson Wentz",
+            },
+            {
+                "qbid": 14,
+                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+                "name": "Nick Foles",
+            },
+        ],
+    }
+    return flask.render_template(
+        "college_detail.html", title="Universidades", data=data
+    )
+
+
 @bp.route("/superbowls", methods=["GET"])
 def superbowls():
     return flask.render_template("superbowls.html", title="Super Bowls")
