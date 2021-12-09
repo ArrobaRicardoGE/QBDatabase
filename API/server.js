@@ -21,12 +21,79 @@ const dbConnection = getPool();
 
 // -----------------------Express-----------------------
 const express = require('express');
+var bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const port = 3001;
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 
 app.get('/', (req, res) => {
     res.send("App running");
+});
+
+
+objetoPrueba = {
+    nombre : " Juan",
+    apellido: " Marroquin"
+}
+
+// Individual por QB
+app.post('/QuarterbackID', (req, res) => {
+    console.log(req.body.ID);
+    res.json(objetoPrueba);
+});
+
+// QB por equipo
+app.post('/QuaterbackEquipo', (req, res) => {
+    console.log(req.body.clave);
+    res.json(objetoPrueba);
+});
+
+// QB por uni
+app.post('/QuaterbackUniversidad', (req, res) => {
+    console.log(req.body.IDUniversidad);
+    res.json(objetoPrueba);
+});
+
+
+// Individual equipo
+app.post('/EquipoClave', (req, res) => {
+    console.log(req.body.clave);
+    res.json(objetoPrueba);
+});
+
+// Equipos
+app.post('/Equipos', (req, res) => {
+    res.json(objetoPrueba);
+});
+
+// Individual SuperBowl
+app.post('/SuperBowlEdicion', (req, res) => {
+    console.log(req.body.edicion);
+    res.json(objetoPrueba);
+});
+
+// SuperBowl
+app.post('/SuperBowl', (req, res) => {
+    res.json(objetoPrueba);
+});
+
+// QBs por nombre
+app.post('/QuaterbackNombre', (req, res) => {
+    console.log(req.body.nombreQuery);
+    res.json(objetoPrueba);
+});
+
+// Graifca de QBs por equipo
+app.post('/GraficaQBEquipo', (req, res) => {
+    res.json(objetoPrueba);
+});
+
+// Graifca de QBs por universidad
+app.post('/GraficaQBUniversidad', (req, res) => {
+    res.json(objetoPrueba);
 });
 
 
