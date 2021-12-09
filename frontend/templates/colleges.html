@@ -1,5 +1,15 @@
 {% extends 'base.html' %} 
 
 {%block content%}
-    <h1>Universidades</h1>
+    <div class="row row-cols-6 my-5">
+        {% for college in data%}
+        <div class="col">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{url_for('routes.college_info', college_id=college['id'])}}">{{college['name']}}</a></h5>
+                </div>
+              </div>
+        </div>
+        {% endfor %}
+    </div>
 {%endblock%}

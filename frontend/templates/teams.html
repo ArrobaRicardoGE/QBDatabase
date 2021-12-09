@@ -1,5 +1,16 @@
 {% extends 'base.html' %} 
 
 {%block content%}
-    <h1>Equipos</h1>
+    <div class="row row-cols-4 my-5">
+        {% for team in data%}
+        <div class="col">
+            <div class="card text-center">
+                <img src="{{team['logo_url']}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{url_for('routes.team_info', key=team['key'])}}">{{team['name']}}</a></h5>
+                </div>
+              </div>
+        </div>
+        {% endfor %}
+    </div>
 {%endblock%}

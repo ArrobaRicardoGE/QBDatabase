@@ -1,5 +1,28 @@
 {% extends 'base.html' %} 
 
 {%block content%}
-    <h1>Quarterbacks</h1>
+    <form class="d-flex">
+        <div class="input-group input-group-lg">
+            <input class="form-control me-2" type="search" placeholder="Buscar Quarterbacks..." aria-label="Search" name="q">
+            <button class="btn btn-dark" type="submit">Buscar</button>
+        </div>
+    </form>
+    {% if data %}
+        <h2 class="my-5"> Mostrando resultados para "{{data['query']}}"</h2>
+        <div class="row row-cols-5 my-5">
+            {% for qb in data['quarterbacks'] %}
+            <div class="col">
+                <div class="card text-center">
+                    <img src="{{qb['headshot_url']}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{{url_for('routes.quarterback_info', qbid=qb['qbid'])}}">{{qb['name']}}</a></h5>
+                    </div>
+                  </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h2 class="my-5"> No se obtuvieron Quarterbacks con la búsqueda actual</h2>
+    {% endif %}
+
 {%endblock%}

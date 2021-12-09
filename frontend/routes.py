@@ -10,7 +10,24 @@ def index():
 
 @bp.route("/quarterbacks", methods=["GET"])
 def quarterbacks():
-    return flask.render_template("quarterbacks.html", title="Quarterbacks")
+    print(flask.request.args)
+    data = {
+        "query": flask.request.args.get("q"),
+        "quarterbacks": [
+            {
+                "qbid": 13,
+                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+                "name": "Carson Wentz",
+            },
+            {
+                "qbid": 14,
+                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+                "name": "Nick Foles",
+            },
+        ],
+    }
+    print(flask.request.args)
+    return flask.render_template("quarterbacks.html", title="Quarterbacks", data=data)
 
 
 @bp.route("/quarterbacks/<int:qbid>", methods=["GET"])
@@ -58,7 +75,19 @@ def quarterback_info(qbid):
 
 @bp.route("/teams", methods=["GET"])
 def teams():
-    return flask.render_template("teams.html", title="Equipos")
+    data = [
+        {
+            "key": "PHI",
+            "name": "Philadelphia Eagles",
+            "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
+        },
+        {
+            "key": "BUF",
+            "name": "Buffalo Bills",
+            "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/BUF.svg",
+        },
+    ]
+    return flask.render_template("teams.html", title="Equipos", data=data)
 
 
 @bp.route("/teams/<string:key>", methods=["GET"])
@@ -88,7 +117,11 @@ def team_info(key):
 
 @bp.route("/colleges", methods=["GET"])
 def colleges():
-    return flask.render_template("colleges.html", title="Universidades")
+    data = [
+        {"id": 123, "name": "LSU"},
+        {"id": 123, "name": "Notre Dame"},
+    ]
+    return flask.render_template("colleges.html", title="Universidades", data=data)
 
 
 @bp.route("/colleges/<int:college_id>", methods=["GET"])
@@ -117,7 +150,17 @@ def college_info(college_id):
 
 @bp.route("/superbowls", methods=["GET"])
 def superbowls():
-    return flask.render_template("superbowls.html", title="Super Bowls")
+    data = [
+        {
+            "edition": 51,
+            "date": "2017-02-01",
+        },
+        {
+            "edition": 52,
+            "date": "2018-02-02",
+        },
+    ]
+    return flask.render_template("superbowls.html", title="Super Bowls", data=data)
 
 
 @bp.route("/superbowls/<int:edition>", methods=["GET"])
