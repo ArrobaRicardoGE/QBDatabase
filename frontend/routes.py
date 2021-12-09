@@ -117,7 +117,18 @@ def team_info(key):
 
 @bp.route("/colleges", methods=["GET"])
 def colleges():
-    return flask.render_template("colleges.html", title="Universidades")
+    data = [
+        {
+            'id': 123, 
+            'name': 'LSU'
+        },
+        {
+            'id': 123, 
+            'name': 'Notre Dame'
+        },
+
+    ]
+    return flask.render_template("colleges.html", title="Universidades", data=data)
 
 
 @bp.route("/colleges/<int:college_id>", methods=["GET"])
