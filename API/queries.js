@@ -99,8 +99,17 @@ function QBPorNombre(str){
     return query;
 }
 
+function QBGraficaEquipo(){
+    let query = `SELECT  count(DISTINCT id_quaterback) cantidad, eq.nombre nombre, eq.ciudad
+    FROM Quarterback_Equipo
+    JOIN Equipo eq on Quarterback_Equipo.clave_equipo = eq.clave
+    GROUP BY clave_equipo, eq.nombre, eq.ciudad
+    ORDER BY cantidad DESC;`;
+    return query;
+}
+
 
 
 module.exports = {QuarterbackID, QuarterbackIDEquipos, QBPorEquipo, QBPorEquipoArray,
 QBPorUniversidad, QBPorUniversidadArray, IndivEquipo, IndivEquipoSB, Equipos, Universidades,
-IndivSB, IndivSBQB, SuperBowl, QBPorNombre};
+IndivSB, IndivSBQB, SuperBowl, QBPorNombre, QBGraficaEquipo};

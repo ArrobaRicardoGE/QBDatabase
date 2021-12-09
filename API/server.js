@@ -114,7 +114,9 @@ app.post('/QuarterbackNombre', (req, res) => {
 
 // Graifca de QBs por equipo
 app.post('/GraficaQBEquipo', (req, res) => {
-    res.json(objetoPrueba);
+    peticiones.GraficaQBEquipo(sql, (result) => {
+        res.json(result);
+    });
 });
 
 // Graifca de QBs por universidad
