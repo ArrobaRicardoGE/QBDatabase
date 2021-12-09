@@ -21,7 +21,7 @@ function QBPorEquipo(Clave){
 }
 
 function QBPorEquipoArray(Clave){
-    let query = `SELECT qb.ID, qb.Nombre, qb.Apellido, qb.headshot_url
+    let query = `SELECT DISTINCT qb.ID, qb.Nombre, qb.Apellido, qb.headshot_url
     FROM Quarterback_Equipo tab
     JOIN Quarterback qb on tab.id_quaterback = qb.id
     WHERE tab.clave_equipo = '${Clave}';`
