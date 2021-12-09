@@ -70,15 +70,19 @@ app.post('/QuarterbackUniversidad', (req, res) => {
 // Individual equipo
 app.post('/EquipoClave', (req, res) => {
     console.log(req.body.clave);
-    res.json(objetoPrueba);
+    peticiones.EquipoClave(sql, req.body.clave, (result) => {
+        res.json(result);
+    });
 });
 
 // Equipos
 app.post('/Equipos', (req, res) => {
-    res.json(objetoPrueba);
+    peticiones.Equipos(sql, (result) => {
+        res.json(result);
+    })
 });
 
-// Equipos
+// Universidades
 app.post('/Universidades', (req, res) => {
     res.json(objetoPrueba);
 });

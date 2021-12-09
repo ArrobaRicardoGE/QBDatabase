@@ -41,5 +41,25 @@ function QBPorUniversidadArray(ID){
     return query;
 }
 
+function IndivEquipo(Clave){
+    let query = `SELECT clave, nombre, ciudad, division, conferencia, logo_url
+    FROM Equipo
+    WHERE clave = '${Clave}';`
+    return query;
+}
+
+function IndivEquipoSB(Clave){
+    let query = `SELECT edicion FROM SuperBowl
+    WHERE clave_local = '${Clave}' OR clave_visitante= '${Clave}';`
+    return query;
+}
+
+function Equipos(){
+    let query = `SELECT Clave, Nombre, Ciudad, logo_url
+    FROM Equipo;`;
+    return query;
+}
+
+
 module.exports = {QuarterbackID, QuarterbackIDEquipos, QBPorEquipo, QBPorEquipoArray,
-QBPorUniversidad, QBPorUniversidadArray};
+QBPorUniversidad, QBPorUniversidadArray, IndivEquipo, IndivEquipoSB, Equipos};

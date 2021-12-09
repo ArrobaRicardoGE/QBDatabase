@@ -52,4 +52,31 @@ async function QuarterbackUniversidad(sql, id, callback){
     callback(resultado);
 }
 
-module.exports = {QuarterbackID, QuarterbackEquipo, QuarterbackUniversidad};
+async function EquipoClave(sql, clave, callback){
+    let pool = new sql.Request();
+    let infoEquipo = await pool.query(queries.IndivEquipo(clave));
+    infoEquipo = infoEquipo.recordsets[0][0];
+
+    pool = new sql.Request();
+    let arraySB = await pool.query(queries.IndivEquipoSB(clave));
+    arraySB = arraySB.recordsets[0];
+
+    resultado = {
+        ...infoEquipo,
+        SuperBowls : arraySB
+    }
+    callback(resultado);
+
+}
+
+async function Equipos(sql, callback){
+    let pool = new sql.Request();
+    let equipos = await pool.query(queries.Equipos());
+    equipos = equipos.recordsets[0];
+
+    callback(equipos);
+    
+}
+
+
+module.exports = {QuarterbackID, QuarterbackEquipo, QuarterbackUniversidad, EquipoClave, Equipos};
