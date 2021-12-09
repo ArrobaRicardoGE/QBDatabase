@@ -121,7 +121,9 @@ app.post('/GraficaQBEquipo', (req, res) => {
 
 // Graifca de QBs por universidad
 app.post('/GraficaQBUniversidad', (req, res) => {
-    res.json(objetoPrueba);
+    peticiones.GraficaQBUniversidad(sql, (result) => {
+        res.json(result);
+    });
 });
 
 

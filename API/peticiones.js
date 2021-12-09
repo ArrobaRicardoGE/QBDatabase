@@ -135,5 +135,12 @@ async function GraficaQBEquipo(sql, callback){
     callback(array);
 }
 
+async function GraficaQBUniversidad(sql, callback){
+    let pool = new sql.Request();
+    let array = await pool.query(queries.QBGraficaUni());
+    array = array.recordsets[0];
+    callback(array);
+}
+
 module.exports = {QuarterbackID, QuarterbackEquipo, QuarterbackUniversidad, EquipoClave, Equipos,
-Universidades, SuperBowlEdicion, SuperBowl, QuarterbackNombre, GraficaQBEquipo};
+Universidades, SuperBowlEdicion, SuperBowl, QuarterbackNombre, GraficaQBEquipo, GraficaQBUniversidad};
