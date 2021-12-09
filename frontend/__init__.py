@@ -1,0 +1,13 @@
+from flask import Flask
+import flask
+
+
+def create_app():
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_mapping(SECRET_KEY="dev")
+
+    @app.route("/hello")
+    def hello():
+        return flask.render_template("index.html", title="Equipos")
+
+    return app
