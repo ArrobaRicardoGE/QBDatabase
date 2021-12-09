@@ -1,0 +1,28 @@
+{
+  "name": "quaterbacks_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArrobaRicardoGE/QBDatabase.git"
+  },
+  "keywords": [
+    "api",
+    "quaterbacks"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArrobaRicardoGE/QBDatabase/issues"
+  },
+  "homepage": "https://github.com/ArrobaRicardoGE/QBDatabase#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mssql": "^7.3.0"
+  }
+}
