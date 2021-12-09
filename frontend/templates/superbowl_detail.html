@@ -1,0 +1,57 @@
+{% extends 'base.html' %} 
+
+{%block content%}
+<div class="card mb-3 mx-auto">
+    <div class="row g-0">
+        <div class="col mx-auto" style="max-width: 992px;">
+            <div class="card-body">
+                <h3 class="card-title mb-4">Super Bowl {{data['edition']}}</h3>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item"><b>Fecha:</b> {{data['date']}}</li>
+                    <li class="list-group-item"><b>Estadio:</b> {{data['stadium']}}</li>
+                    <li class="list-group-item"><b>Ciudad:</b> {{data['city']}}</li>
+                </ul>
+                <div class="row row-cols-2 mb-3">
+                    <div class="col text-center">
+                        <img src="{{data['home']['logo_url']}}" class="img-fluid">
+                        <h4><a href="#">{{data['home']['name']}}</a></h4>
+                        <h4>{{data['home']['score']}}</h4>
+                    </div>
+                    <div class="col text-center">
+                        <img src="{{data['away']['logo_url']}}" class="img-fluid">
+                        <h4><a href="#">{{data['away']['name']}}</a></h4>
+                        <h4>{{data['away']['score']}}</h4>
+                    </div>
+                </div>
+                <h5>Quarterbacks</h5>
+                <div class="row row-cols-2">
+                    <div class="row row-cols-3 mb-3">
+                        {% for qb in data['quarterbacks_home'] %}
+                        <div class="col">
+                            <div class="card text-center" style="max-width: 15rem;">
+                                <img src="{{qb['headshot_url']}}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="{{url_for('routes.quarterback_info', qbid=qb['qbid'])}}">{{qb['name']}}</a></h5>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row row-cols-3 mb-3">
+                        {% for qb in data['quarterbacks_away'] %}
+                        <div class="col">
+                            <div class="card text-center" style="max-width: 15rem;">
+                                <img src="{{qb['headshot_url']}}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="{{url_for('routes.quarterback_info', qbid=qb['qbid'])}}">{{qb['name']}}</a></h5>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

@@ -116,3 +116,52 @@ def college_info(college_id):
 @bp.route("/superbowls", methods=["GET"])
 def superbowls():
     return flask.render_template("superbowls.html", title="Super Bowls")
+
+
+@bp.route("/superbowls/<int:edition>", methods=["GET"])
+def superbowl_info(edition):
+    data = {
+        "edition": edition,
+        "date": "2018-02-07",
+        "stadium": "El de los Vikings",
+        "city": "Mineapolis",
+        "home": {
+            "key": "PHI",
+            "name": "Philadelphia Eagles",
+            "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
+            "score": 41,
+        },
+        "away": {
+            "key": "NE",
+            "name": "New England Patriots",
+            "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/NE.svg",
+            "score": 33,
+        },
+        "quarterbacks_home": [
+            {
+                "qbid": 13,
+                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+                "name": "Carson Wentz",
+            },
+            {
+                "qbid": 14,
+                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+                "name": "Nick Foles",
+            },
+        ],
+        "quarterbacks_away": [
+            {
+                "qbid": 13,
+                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+                "name": "Carson Wentz",
+            },
+            {
+                "qbid": 14,
+                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+                "name": "Nick Foles",
+            },
+        ],
+    }
+    return flask.render_template(
+        "superbowl_detail.html", title="Super Bowls", data=data
+    )
