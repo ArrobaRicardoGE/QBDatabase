@@ -1,7 +1,7 @@
 const queries = require("./queries");
 
 async function QuarterbackID(sql, idQB, callback){
-    let pool = new sql.Request()
+    let pool = new sql.Request();
     let ans = await pool.query(queries.QuarterbackID(idQB));
 
     pool = new sql.Request();
@@ -17,4 +17,22 @@ async function QuarterbackID(sql, idQB, callback){
     callback(resultado);
 }
 
-module.exports = {QuarterbackID};
+async function QuarterbackEquipo(sql, clave, callback){
+    let pool = new sql.Request();
+    let infoEquipo = await pool.query(queries.QBPorEquipo(clave));
+
+    pool = new sql.Request();
+    let arrayPlayers = await pool.query(queries.QBPorEquipoArray(clave));
+
+    infoEquipo = infoEquipo.recordsets[0][0];
+    arrayPlayers = arrayPlayers.recordsets[0];
+
+    resultado = {
+        ...infoEquipo,
+        jugadores : arrayPlayers
+    }
+
+    callback(resultado);
+}
+
+module.exports = {QuarterbackID, QuarterbackEquipo};

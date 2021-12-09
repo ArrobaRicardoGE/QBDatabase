@@ -14,6 +14,18 @@ function QuarterbackIDEquipos(ID){
     return query;
 }
 
-QuarterbackID
+function QBPorEquipo(Clave){
+    let query = `SELECT Nombre, Ciudad, logo_url FROM Equipo
+    WHERE clave = '${Clave}';`
+    return query;
+}
 
-module.exports = {QuarterbackID, QuarterbackIDEquipos};
+function QBPorEquipoArray(Clave){
+    let query = `SELECT qb.ID, qb.Nombre, qb.Apellido, qb.headshot_url
+    FROM Quarterback_Equipo tab
+    JOIN Quarterback qb on tab.id_quaterback = qb.id
+    WHERE tab.clave_equipo = '${Clave}';`
+    return query;
+}
+
+module.exports = {QuarterbackID, QuarterbackIDEquipos, QBPorEquipo, QBPorEquipoArray};
