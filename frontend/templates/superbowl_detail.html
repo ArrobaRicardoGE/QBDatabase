@@ -1,6 +1,9 @@
 {% extends 'base.html' %} 
 
 {%block content%}
+{% if not data %}
+    <h1>¡Rayos! No tenemos información de ese Super Bowl</h1>
+{% else %}
 <div class="card mb-3 mx-auto">
     <div class="row g-0">
         <div class="col mx-auto" style="max-width: 992px;">
@@ -25,10 +28,10 @@
                 </div>
                 <h5>Quarterbacks</h5>
                 <div class="row row-cols-2">
-                    <div class="row row-cols-3 mb-3">
+                    <div class="row row-cols-3 mb-3 pe-5">
                         {% for qb in data['quarterbacks_home'] %}
                         <div class="col">
-                            <div class="card text-center" style="max-width: 15rem;">
+                            <div class="card text-center">
                                 <img src="{{qb['headshot_url']}}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title"><a href="{{url_for('routes.quarterback_info', qbid=qb['qbid'])}}">{{qb['name']}}</a></h5>
@@ -37,10 +40,10 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <div class="row row-cols-3 mb-3">
+                    <div class="row row-cols-3 mb-3 ps-5">
                         {% for qb in data['quarterbacks_away'] %}
                         <div class="col">
-                            <div class="card text-center" style="max-width: 15rem;">
+                            <div class="card text-center">
                                 <img src="{{qb['headshot_url']}}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title"><a href="{{url_for('routes.quarterback_info', qbid=qb['qbid'])}}">{{qb['name']}}</a></h5>
@@ -54,4 +57,5 @@
         </div>
     </div>
 </div>
+{% endif %}
 {%endblock%}

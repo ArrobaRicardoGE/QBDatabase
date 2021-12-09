@@ -170,48 +170,48 @@ def superbowls():
 
 @bp.route("/superbowls/<int:edition>", methods=["GET"])
 def superbowl_info(edition):
-    data = {
-        "edition": edition,
-        "date": "2018-02-07",
-        "stadium": "El de los Vikings",
-        "city": "Mineapolis",
-        "home": {
-            "key": "PHI",
-            "name": "Philadelphia Eagles",
-            "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
-            "score": 41,
-        },
-        "away": {
-            "key": "NE",
-            "name": "New England Patriots",
-            "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/NE.svg",
-            "score": 33,
-        },
-        "quarterbacks_home": [
-            {
-                "qbid": 13,
-                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
-                "name": "Carson Wentz",
+    r = requests.post(
+        "http://localhost:3001/SuperBowlEdicion", data={"edicion": edition}
+    )
+    data = None
+    if r.text != "":
+        raw_data = r.json()
+        data = {
+            "edition": raw_data["edicion"],
+            "date": raw_data["feca"][:10],
+            "stadium": raw_data["estadio_sede"],
+            "city": raw_data["ciudad_sede"],
+            "home": {
+                "key": raw_data["clave_local"],
+                "name": raw_data["ciudad_local"] + " " + raw_data["nombre_local"],
+                "logo_url": raw_data["logo_local"],
+                "score": raw_data["marcador_local"],
             },
-            {
-                "qbid": 14,
-                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
-                "name": "Nick Foles",
+            "away": {
+                "key": raw_data["clave_visitante"],
+                "name": raw_data["ciudad_visitante"]
+                + " "
+                + raw_data["nombre_visitante"],
+                "logo_url": raw_data["logo_visitante"],
+                "score": raw_data["marcador_visitante"],
             },
-        ],
-        "quarterbacks_away": [
-            {
-                "qbid": 13,
-                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
-                "name": "Carson Wentz",
-            },
-            {
-                "qbid": 14,
-                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
-                "name": "Nick Foles",
-            },
-        ],
-    }
+            "quarterbacks_home": [
+                {
+                    "qbid": qb["ID"],
+                    "headshot_url": qb["headshot_url"],
+                    "name": qb["Nombre"] + " " + qb["Apellido"],
+                }
+                for qb in raw_data["qb_locales"]
+            ],
+            "quarterbacks_away": [
+                {
+                    "qbid": qb["ID"],
+                    "headshot_url": qb["headshot_url"],
+                    "name": qb["Nombre"] + " " + qb["Apellido"],
+                }
+                for qb in raw_data["qb_visitantes"]
+            ],
+        }
     return flask.render_template(
         "superbowl_detail.html", title="Super Bowls", data=data
     )
