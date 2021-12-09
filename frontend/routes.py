@@ -128,23 +128,26 @@ def colleges():
 
 @bp.route("/colleges/<int:college_id>", methods=["GET"])
 def college_info(college_id):
-    data = {
-        "college_id": college_id,
-        "name": "LSU",
-        "state": "Lousiana",
-        "quarterbacks": [
-            {
-                "qbid": 13,
-                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
-                "name": "Carson Wentz",
-            },
-            {
-                "qbid": 14,
-                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
-                "name": "Nick Foles",
-            },
-        ],
-    }
+    r = requests.post(
+        "http://localhost:3001/QuarterbackUniversidad",
+        data={"IDUniversidad": college_id},
+    )
+    raw_data = r.json()
+    data = None
+    if len(raw_data) > 1:
+        data = {
+            "college_id": college_id,
+            "name": raw_data["nombre"],
+            "state": raw_data["estado"],
+            "quarterbacks": [
+                {
+                    "qbid": qb["id"],
+                    "headshot_url": qb["headshot_url"],
+                    "name": qb["Nombre"] + " " + qb["Apellido"],
+                }
+                for qb in raw_data["jugadores"]
+            ],
+        }
     return flask.render_template(
         "college_detail.html", title="Universidades", data=data
     )
