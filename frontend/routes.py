@@ -25,6 +25,11 @@ def index():
 
 @bp.route("/quarterbacks", methods=["GET"])
 def quarterbacks():
+    if not flask.request.args.get("q"):
+        print("in")
+        return flask.render_template(
+            "quarterbacks.html", title="Quarterbacks", data=None
+        )
     r = requests.post(
         "http://localhost:3001/QuarterbackNombre",
         data={"nombreQuery": flask.request.args.get("q")},
@@ -159,15 +164,14 @@ def college_info(college_id):
 
 @bp.route("/superbowls", methods=["GET"])
 def superbowls():
+    r = requests.post("http://localhost:3001/SuperBowl")
+    raw_data = r.json()[1:]
     data = [
         {
-            "edition": 51,
-            "date": "2017-02-01",
-        },
-        {
-            "edition": 52,
-            "date": "2018-02-02",
-        },
+            "edition": sb["Edicion"],
+            "date": sb["Fecha"][0:10],
+        }
+        for sb in raw_data
     ]
     return flask.render_template("superbowls.html", title="Super Bowls", data=data)
 
