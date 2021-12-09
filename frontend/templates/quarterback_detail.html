@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <h3 class="card-title mb-4">{{data['name']}}</h3>
                     <ul class="list-group mb-3">
-                        <li class="list-group-item"><b>Fecha de nacimiento:</b> {{data['birth_date']}}</li>
+                        <li class="list-group-item"><b>Fecha de nacimiento:</b> {{data['birth_date']}} ({{data['age']}} años)</li>
                         <li class="list-group-item"><b>Estatura:</b> {{data['height']}} cm</li>
                         <li class="list-group-item"><b>Peso:</b> {{data['weight']}} kg</li>
                         <li class="list-group-item"><b>Universidad:</b> <a href="{{url_for('routes.college_info', college_id=data['college_id'])}}">{{data['college_name']}}</a></li>

@@ -1,5 +1,6 @@
 import flask
 import requests
+from datetime import datetime, date
 
 bp = flask.Blueprint("routes", __name__)
 
@@ -58,13 +59,19 @@ def quarterback_info(qbid):
     )
     raw_data = r.json()
     data = None
+
+    def get_age(born):
+        today = date.today()
+        return (
+            today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+        )
+
     if len(raw_data) > 1:
         data = {
             "qbid": raw_data["id_QB"],
             "name": raw_data["nombre_QB"] + " " + raw_data["apellido"],
-            "birth_date": raw_data["fecha_nacimiento"][
-                :10
-            ],  # TODO: sacar cuenta de la edad
+            "birth_date": raw_data["fecha_nacimiento"][:10],
+            "age": get_age(datetime.fromisoformat(raw_data["fecha_nacimiento"][:10])),
             "height": f'{raw_data["estatura"] * 2.54 :.2f}',
             "weight": f'{raw_data["peso"] / 2.205 :.2f}',
             "headshot_url": raw_data["headshot_url"],
