@@ -6,14 +6,18 @@ bp = flask.Blueprint("routes", __name__)
 
 @bp.route("/", methods=["GET"])
 def index():
+    r = requests.post("http://localhost:3001/GraficaQBEquipo")
+    raw_team_data = r.json()
+    r = requests.post("http://localhost:3001/GraficaQBUniversidad")
+    raw_college_data = r.json()[:7] + r.json()[9:22]
     data = {
         "teams": {
-            "label": ["PHI", "AZ"],
-            "data": [1, 2],
+            "label": [record["nombre"] for record in raw_team_data],
+            "data": [record["cantidad"] for record in raw_team_data],
         },
         "college": {
-            "label": ["LSU", "STL"],
-            "data": [1, 2],
+            "label": [record["Nombre"] for record in raw_college_data],
+            "data": [record["cantidad"] for record in raw_college_data],
         },
     }
     return flask.render_template("index.html", title="Inicio", data=data)
