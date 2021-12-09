@@ -124,10 +124,9 @@ def team_info(key):
 
 @bp.route("/colleges", methods=["GET"])
 def colleges():
-    data = [
-        {"id": 123, "name": "LSU"},
-        {"id": 123, "name": "Notre Dame"},
-    ]
+    r = requests.post("http://localhost:3001/Universidades")
+    raw_data = r.json()
+    data = [{"id": college["ID"], "name": college["Nombre"]} for college in raw_data]
     return flask.render_template("colleges.html", title="Universidades", data=data)
 
 
