@@ -49,9 +49,17 @@
             </div>
         </nav>
 
+        <!-- Header -->
+        <div class="container text-center">
+            <img src="{{url_for('static', filename='cover-'+title+'.jpg')}}" alt="Portada" class="mt-0" style="width: 100%;">
+            <p class="bg-dark text-light fs-1 px-3 fw-bold mb-4 mx-auto">{{title}}</p>
+        </div>
+
         <!-- Content -->
-        {% block content %}
-        {% endblock content %}
+        <div class="container">
+            {% block content %}
+            {% endblock content %}
+        </div>
 
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

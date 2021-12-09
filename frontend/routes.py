@@ -15,7 +15,7 @@ def quarterbacks():
 
 @bp.route("/teams", methods=["GET"])
 def teams():
-    return flask.render_template("teams.html", title="Teams")
+    return flask.render_template("teams.html", title="Equipos")
 
 
 @bp.route("/colleges", methods=["GET"])
