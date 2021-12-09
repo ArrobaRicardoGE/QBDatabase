@@ -59,6 +59,31 @@ def teams():
     return flask.render_template("teams.html", title="Equipos")
 
 
+@bp.route("/teams/<string:key>", methods=["GET"])
+def team_info(key):
+    data = {
+        "key": key,
+        "name": "Philadelphia Eagles",
+        "conference": "NFC",
+        "division": "East",
+        "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
+        "quarterbacks": [
+            {
+                "qbid": 13,
+                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+                "name": "Carson Wentz",
+            },
+            {
+                "qbid": 14,
+                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+                "name": "Nick Foles",
+            },
+        ],
+        "superbowls": [52],
+    }
+    return flask.render_template("team_detail.html", title="Equipos", data=data)
+
+
 @bp.route("/colleges", methods=["GET"])
 def colleges():
     return flask.render_template("colleges.html", title="Universidades")

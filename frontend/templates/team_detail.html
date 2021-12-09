@@ -1,0 +1,46 @@
+{% extends 'base.html' %} 
+
+{%block content%}
+<div class="card mb-3 mx-auto">
+    <div class="row g-0">
+        <div class="col-md-4 d-flex align-items-center justify-content-center">
+            <img src="{{data['logo_url']}}" class="img-fluid rounded-start" alt="Logo del equipo">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{data['name']}}</h5>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item"><b>Conferencia</b> {{data['conference']}}</li>
+                    <li class="list-group-item"><b>Divisón:</b> {{data['division']}}</li>
+                </ul>
+                <h5>Super Bowls Jugados</h5>
+                <div class="row row-cols-3 mb-3">
+                    {% for sb in data['superbowls'] %}
+                    <div class="col">
+                        <div class="card text-center" style="max-width: 15rem;">
+                            {# <img src="{{team['logo_url']}}" class="card-img-top" alt="..."> #}
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="#">{{sb}}</a></h5>
+                            </div>
+                          </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <h5>Quarterbacks</h5>
+                <div class="row row-cols-5 mb-3">
+                    {% for qb in data['quarterbacks'] %}
+                    <div class="col">
+                        <div class="card text-center" style="max-width: 15rem;">
+                            <img src="{{qb['headshot_url']}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{url_for('routes.quarterback_info', qbid=qb['qbid'])}}">{{qb['name']}}</a></h5>
+                            </div>
+                          </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
