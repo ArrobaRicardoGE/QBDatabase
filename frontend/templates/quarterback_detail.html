@@ -1,10 +1,13 @@
 {% extends 'base.html' %} 
 
 {%block content%}
+    {% if not data %}
+    <h1>¡Ups! Parece que ese no es un ID válido</h1>
+    {% else %}
     <div class="card mb-3 mx-auto">
         <div class="row g-0">
-            <div class="col-md-4 d-flex align-items-center justify-content-center">
-                <img src="{{data['headshot_url']}}" class="img-fluid rounded-start" alt="Foto del jugador">
+            <div class="col-md-4">
+                <img src="{{data['headshot_url']}}" class="img-fluid rounded-start" alt="Foto del jugador" width="100%">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -16,7 +19,7 @@
                         <li class="list-group-item"><b>Universidad:</b> <a href="{{url_for('routes.college_info', college_id=data['college_id'])}}">{{data['college_name']}}</a></li>
                     </ul>
                     <h5>Equipos:</h5>
-                    <div class="row row-cols-3">
+                    <div class="row row-cols-4">
                         {% for team in data['teams'] %}
                         <div class="col">
                             <div class="card" style="max-width: 15rem;">
@@ -33,4 +36,5 @@
             </div>
         </div>
     </div>
+    {% endif %}
 {%endblock%}
