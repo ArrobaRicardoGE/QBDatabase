@@ -75,7 +75,19 @@ def quarterback_info(qbid):
 
 @bp.route("/teams", methods=["GET"])
 def teams():
-    return flask.render_template("teams.html", title="Equipos")
+    data = [
+        {
+            "key": "PHI",
+            "name": "Philadelphia Eagles",
+            "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
+        },
+        {
+            "key": "BUF",
+            "name": "Buffalo Bills",
+            "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/BUF.svg",
+        },
+    ]
+    return flask.render_template("teams.html", title="Equipos", data=data)
 
 
 @bp.route("/teams/<string:key>", methods=["GET"])
