@@ -51,15 +51,19 @@ app.post('/QuarterbackID', (req, res) => {
 });
 
 // QB por equipo
-app.post('/QuaterbackEquipo', (req, res) => {
+app.post('/QuarterbackEquipo', (req, res) => {
     console.log(req.body.clave);
-    res.json(objetoPrueba);
+    peticiones.QuarterbackEquipo(sql, req.body.clave, (result) => {
+        res.json(result);
+    })
 });
 
 // QB por uni
-app.post('/QuaterbackUniversidad', (req, res) => {
+app.post('/QuarterbackUniversidad', (req, res) => {
     console.log(req.body.IDUniversidad);
-    res.json(objetoPrueba);
+    peticiones.QuarterbackUniversidad(sql, req.body.IDUniversidad, (result) => {
+        res.json(result);
+    })
 });
 
 
