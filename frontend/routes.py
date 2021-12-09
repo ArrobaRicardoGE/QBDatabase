@@ -13,6 +13,47 @@ def quarterbacks():
     return flask.render_template("quarterbacks.html", title="Quarterbacks")
 
 
+@bp.route("/quarterbacks/<int:qbid>", methods=["GET"])
+def quarterback_info(qbid):
+    data = {
+        "qbid": qbid,
+        "name": "Randall" + " " + "Cunningham",
+        "birth_date": "1970-01-01",
+        "height": 192,
+        "weight": 110,
+        "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+        "college_id": 45,
+        "college_name": "Princeton",
+        "teams": [
+            {
+                "key": "PHI",
+                "name": "Philadelphia Eagles",
+                "year": 1999,
+                "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
+            },
+            {
+                "key": "PHI",
+                "name": "Philadelphia Eagles",
+                "year": 2000,
+                "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
+            },
+            {
+                "key": "PHI",
+                "name": "Philadelphia Eagles",
+                "year": 2000,
+                "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
+            },
+            {
+                "key": "PHI",
+                "name": "Philadelphia Eagles",
+                "year": 2000,
+                "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
+            },
+        ],
+    }
+    return flask.render_template("qb_detail.html", title="Quarterbacks", data=data)
+
+
 @bp.route("/teams", methods=["GET"])
 def teams():
     return flask.render_template("teams.html", title="Equipos")
