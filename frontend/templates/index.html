@@ -1,5 +1,17 @@
 {% extends 'base.html' %} 
 
-{%block content%}
-    <h1>Inicio</h1>
-{%endblock%}
+{% block content %}
+    <h1>Quarterbacks por Equipo</h1>
+    <canvas id="qbs_team" width="400" height="400" style="max-height: 500px;"></canvas>
+    <h1 class="mt-5">Quarterbacks por Universidad</h1>
+    <canvas class="mb-5" id="qbs_college" width="400" height="400" style="max-height: 500px;"></canvas>
+{% endblock %}
+
+{%block scripts%}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"></script>
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+    <script> 
+        createChart("qbs_team", {{ data['teams']['label']|tojson}}, {{data['teams']['data']|tojson }});
+        createChart("qbs_college", {{ data['college']['label']|tojson }}, {{ data['college']['data']|tojson }});
+    </script>
+{% endblock %}
