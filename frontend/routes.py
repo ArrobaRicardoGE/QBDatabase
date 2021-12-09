@@ -118,15 +118,8 @@ def team_info(key):
 @bp.route("/colleges", methods=["GET"])
 def colleges():
     data = [
-        {
-            'id': 123, 
-            'name': 'LSU'
-        },
-        {
-            'id': 123, 
-            'name': 'Notre Dame'
-        },
-
+        {"id": 123, "name": "LSU"},
+        {"id": 123, "name": "Notre Dame"},
     ]
     return flask.render_template("colleges.html", title="Universidades", data=data)
 
@@ -157,7 +150,17 @@ def college_info(college_id):
 
 @bp.route("/superbowls", methods=["GET"])
 def superbowls():
-    return flask.render_template("superbowls.html", title="Super Bowls")
+    data = [
+        {
+            "edition": 51,
+            "date": "2017-02-01",
+        },
+        {
+            "edition": 52,
+            "date": "2018-02-02",
+        },
+    ]
+    return flask.render_template("superbowls.html", title="Super Bowls", data=data)
 
 
 @bp.route("/superbowls/<int:edition>", methods=["GET"])
