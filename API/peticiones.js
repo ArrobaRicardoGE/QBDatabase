@@ -78,5 +78,40 @@ async function Equipos(sql, callback){
     
 }
 
+async function Universidades(sql, callback){
+    let pool = new sql.Request();
+    let uni = await pool.query(queries.Universidades());
+    uni = uni.recordsets[0];
 
-module.exports = {QuarterbackID, QuarterbackEquipo, QuarterbackUniversidad, EquipoClave, Equipos};
+    callback(uni);
+}
+
+async function SuperBowlEdicion(sql, edicion, callback){
+    let pool = new sql.Request();
+    let info = await pool.query(queries.IndivSB(edicion));
+    info = info.recordsets[0][0];
+    
+    anio = parseInt(edicion) + 1965;
+    vis = info.clave_visitante;
+    loc = info.clave_local;
+
+    pool = new sql.Request();
+    let arrVis = await pool.query(queries.IndivSBQB(anio, vis));
+    arrVis = arrVis.recordsets[0];
+
+    pool = new sql.Request();
+    let arrLoc = await pool.query(queries.IndivSBQB(anio, loc));
+    arrLoc = arrLoc.recordsets[0];
+
+    resultado = {
+        ...info,
+        qb_locales : arrLoc,
+        qb_visitantes : arrVis
+    }
+
+    callback(resultado);
+
+}
+
+module.exports = {QuarterbackID, QuarterbackEquipo, QuarterbackUniversidad, EquipoClave, Equipos,
+Universidades, SuperBowlEdicion};

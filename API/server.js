@@ -79,18 +79,22 @@ app.post('/EquipoClave', (req, res) => {
 app.post('/Equipos', (req, res) => {
     peticiones.Equipos(sql, (result) => {
         res.json(result);
-    })
+    });
 });
 
 // Universidades
 app.post('/Universidades', (req, res) => {
-    res.json(objetoPrueba);
+    peticiones.Universidades(sql, (result) => {
+        res.json(result);
+    });
 });
 
 // Individual SuperBowl
 app.post('/SuperBowlEdicion', (req, res) => {
     console.log(req.body.edicion);
-    res.json(objetoPrueba);
+    peticiones.SuperBowlEdicion(sql, req.body.edicion, (result) => {
+        res.json(result);
+    })
 });
 
 // SuperBowl

@@ -56,10 +56,39 @@ function IndivEquipoSB(Clave){
 
 function Equipos(){
     let query = `SELECT Clave, Nombre, Ciudad, logo_url
-    FROM Equipo;`;
+    FROM Equipo
+    ORDER BY Clave;`;
+    return query;
+}
+
+function Universidades(){
+    let query = `SELECT ID, Nombre, Estado
+    FROM Universidad
+    ORDER BY ID;`;
+    return query;
+}
+
+function IndivSB(edicion){
+    let query = `SELECT sb.edicion edicion, sb.fecha feca, sb.estadio_sede estadio_sede, sb.ciudad_sede ciudad_sede, sb.marcador_local marcador_local, sb.marcador_visitante marcador_visitante,
+    lc.clave clave_local, vis.clave clave_visitante, lc.nombre nombre_local, lc.ciudad ciudad_local, lc.logo_url logo_local,
+    vis.nombre nombre_visitante, vis.ciudad ciudad_visitante, vis.logo_url logo_visitante
+    FROM SuperBowl sb
+    JOIN Equipo lc on lc.clave = sb.clave_local
+    JOIN Equipo vis on vis.clave = sb.clave_visitante
+    WHERE edicion = ${edicion};`;
+    return query;
+}
+
+function IndivSBQB(anio, clave){
+    let query = `SELECT qb.ID ID, qb.headshot_url headshot_url, qb.nombre Nombre, qb.apellido Apellido
+    FROM Quarterback_Equipo tab
+    JOIN Quarterback qb on qb.id = tab.id_quaterback
+    WHERE anio = ${anio} and clave_equipo = '${clave}';`;
     return query;
 }
 
 
+
 module.exports = {QuarterbackID, QuarterbackIDEquipos, QBPorEquipo, QBPorEquipoArray,
-QBPorUniversidad, QBPorUniversidadArray, IndivEquipo, IndivEquipoSB, Equipos};
+QBPorUniversidad, QBPorUniversidadArray, IndivEquipo, IndivEquipoSB, Equipos, Universidades,
+IndivSB, IndivSBQB};
