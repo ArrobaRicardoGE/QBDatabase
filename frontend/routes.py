@@ -51,7 +51,9 @@ def quarterback_info(qbid):
             },
         ],
     }
-    return flask.render_template("qb_detail.html", title="Quarterbacks", data=data)
+    return flask.render_template(
+        "quarterback_detail.html", title="Quarterbacks", data=data
+    )
 
 
 @bp.route("/teams", methods=["GET"])

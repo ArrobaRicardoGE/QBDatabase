@@ -18,9 +18,9 @@
                     {% for sb in data['superbowls'] %}
                     <div class="col">
                         <div class="card text-center" style="max-width: 15rem;">
-                            {# <img src="{{team['logo_url']}}" class="card-img-top" alt="..."> #}
+                            {# <img src="{{sb['logo_url']}}" class="card-img-top" alt="..."> #}
                             <div class="card-body">
-                                <h5 class="card-title"><a href="#">{{sb}}</a></h5>
+                                <h5 class="card-title"><a href="{{url_for('routes.superbowl_info', edition=sb)}}">{{sb}}</a></h5>
                             </div>
                           </div>
                     </div>

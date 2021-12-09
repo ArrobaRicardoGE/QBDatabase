@@ -14,12 +14,12 @@
                 <div class="row row-cols-2 mb-3">
                     <div class="col text-center">
                         <img src="{{data['home']['logo_url']}}" class="img-fluid">
-                        <h4><a href="#">{{data['home']['name']}}</a></h4>
+                        <h4><a href="{{url_for('routes.team_info', key=data['home']['key'])}}">{{data['home']['name']}}</a></h4>
                         <h4>{{data['home']['score']}}</h4>
                     </div>
                     <div class="col text-center">
                         <img src="{{data['away']['logo_url']}}" class="img-fluid">
-                        <h4><a href="#">{{data['away']['name']}}</a></h4>
+                        <h4><a href="{{url_for('routes.team_info', key=data['away']['key'])}}">{{data['away']['name']}}</a></h4>
                         <h4>{{data['away']['score']}}</h4>
                     </div>
                 </div>

@@ -13,7 +13,7 @@
                         <li class="list-group-item"><b>Fecha de nacimiento:</b> {{data['birth_date']}}</li>
                         <li class="list-group-item"><b>Estatura:</b> {{data['height']}} cm</li>
                         <li class="list-group-item"><b>Peso:</b> {{data['weight']}} kg</li>
-                        <li class="list-group-item"><b>Universidad:</b> <a href="#">{{data['college_name']}}</a></li>
+                        <li class="list-group-item"><b>Universidad:</b> <a href="{{url_for('routes.college_info', college_id=data['college_id'])}}">{{data['college_name']}}</a></li>
                     </ul>
                     <h5>Equipos:</h5>
                     <div class="row row-cols-3">
@@ -22,7 +22,7 @@
                             <div class="card" style="max-width: 15rem;">
                                 <img src="{{team['logo_url']}}" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title"><a href="#">{{team['name']}}</a></h5>
+                                    <h5 class="card-title"><a href="{{url_for('routes.team_info', key=team['key'])}}">{{team['name']}}</a></h5>
                                     <p class="card-text">{{team['year']}}</p>
                                 </div>
                               </div>
