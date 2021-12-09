@@ -35,4 +35,21 @@ async function QuarterbackEquipo(sql, clave, callback){
     callback(resultado);
 }
 
-module.exports = {QuarterbackID, QuarterbackEquipo};
+async function QuarterbackUniversidad(sql, id, callback){
+    let pool = new sql.Request();
+    let infoUni = await pool.query(queries.QBPorUniversidad(id));
+
+    pool = new sql.Request();
+    let arrayPlayers = await pool.query(queries.QBPorUniversidadArray(id));
+
+    infoUni = infoUni.recordsets[0][0];
+    arrayPlayers = arrayPlayers.recordsets[0];
+
+    resultado = {
+        ...infoUni,
+        jugadores : arrayPlayers
+    }
+    callback(resultado);
+}
+
+module.exports = {QuarterbackID, QuarterbackEquipo, QuarterbackUniversidad};

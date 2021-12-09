@@ -28,4 +28,18 @@ function QBPorEquipoArray(Clave){
     return query;
 }
 
-module.exports = {QuarterbackID, QuarterbackIDEquipos, QBPorEquipo, QBPorEquipoArray};
+function QBPorUniversidad(ID){
+    let query = `SELECT nombre, estado FROM Universidad
+    WHERE id = ${ID};`
+    return query;
+}
+
+function QBPorUniversidadArray(ID){
+    let query = `SELECT id, headshot_url, Nombre, Apellido
+    FROM Quarterback
+    WHERE id_universidad = ${ID};`
+    return query;
+}
+
+module.exports = {QuarterbackID, QuarterbackIDEquipos, QBPorEquipo, QBPorEquipoArray,
+QBPorUniversidad, QBPorUniversidadArray};

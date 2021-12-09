@@ -59,9 +59,11 @@ app.post('/QuarterbackEquipo', (req, res) => {
 });
 
 // QB por uni
-app.post('/QuaterbackUniversidad', (req, res) => {
+app.post('/QuarterbackUniversidad', (req, res) => {
     console.log(req.body.IDUniversidad);
-    res.json(objetoPrueba);
+    peticiones.QuarterbackUniversidad(sql, req.body.IDUniversidad, (result) => {
+        res.json(result);
+    })
 });
 
 
