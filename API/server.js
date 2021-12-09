@@ -2,12 +2,12 @@
 
 // ---------------MSSQL ------------------------------
 const configFileDB = require('./dbconfig');
-const sql = require('mssql');
+var sql = require('mssql');
 
     async function getPool(){
         try{
             let pool = await sql.connect(configFileDB.config);
-            //let ans = await pool.request().query("SELECT * FROM SuperBowl");
+            let ans = await pool.request().query("SELECT * FROM SuperBowl");
             //console.log(ans.recordsets[0][1]);
             console.log("Connectado a base de datos :)");
             return pool;
@@ -16,7 +16,10 @@ const sql = require('mssql');
         }
     }
 
-const dbConnection = getPool();
+const pool = getPool();
+
+// ------ misModulos ----
+const peticiones = require('./peticiones.js');
 
 
 // -----------------------Express-----------------------
@@ -42,7 +45,9 @@ objetoPrueba = {
 // Individual por QB
 app.post('/QuarterbackID', (req, res) => {
     console.log(req.body.ID);
-    res.json(objetoPrueba);
+    peticiones.QuarterbackID(sql, req.body.ID, (result) => {
+        res.json(result);
+    }); 
 });
 
 // QB por equipo
@@ -66,6 +71,11 @@ app.post('/EquipoClave', (req, res) => {
 
 // Equipos
 app.post('/Equipos', (req, res) => {
+    res.json(objetoPrueba);
+});
+
+// Equipos
+app.post('/Universidades', (req, res) => {
     res.json(objetoPrueba);
 });
 
