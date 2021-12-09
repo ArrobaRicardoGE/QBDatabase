@@ -99,13 +99,17 @@ app.post('/SuperBowlEdicion', (req, res) => {
 
 // SuperBowl
 app.post('/SuperBowl', (req, res) => {
-    res.json(objetoPrueba);
+    peticiones.SuperBowl(sql, (result) => {
+        res.json(result);
+    });
 });
 
 // QBs por nombre
-app.post('/QuaterbackNombre', (req, res) => {
+app.post('/QuarterbackNombre', (req, res) => {
     console.log(req.body.nombreQuery);
-    res.json(objetoPrueba);
+    peticiones.QuarterbackNombre(sql, req.body.nombreQuery, (result) => {
+        res.json(result);
+    });
 });
 
 // Graifca de QBs por equipo

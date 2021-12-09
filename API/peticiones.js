@@ -113,5 +113,20 @@ async function SuperBowlEdicion(sql, edicion, callback){
 
 }
 
+async function SuperBowl(sql, callback){
+    let pool = new sql.Request();
+    let array = await pool.query(queries.SuperBowl());
+    array = array.recordsets[0];
+    callback(array);
+
+}
+
+async function QuarterbackNombre(sql, str, callback){
+    let pool = new sql.Request();
+    let array = await pool.query(queries.QBPorNombre(str));
+    array = array.recordsets[0];
+    callback(array);
+}
+
 module.exports = {QuarterbackID, QuarterbackEquipo, QuarterbackUniversidad, EquipoClave, Equipos,
-Universidades, SuperBowlEdicion};
+Universidades, SuperBowlEdicion, SuperBowl, QuarterbackNombre};

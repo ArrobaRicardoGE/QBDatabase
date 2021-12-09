@@ -87,8 +87,20 @@ function IndivSBQB(anio, clave){
     return query;
 }
 
+function SuperBowl(){
+    let query = `SELECT Edicion, Fecha FROM SuperBowl
+    ORDER BY Edicion;`;
+    return query;
+}
+
+function QBPorNombre(str){
+    let query = `SELECT TOP 20 ID, headshot_url, Nombre, Apellido FROM Quarterback
+    WHERE nombre + ' ' + apellido LIKE ('%${str}%');`;
+    return query;
+}
+
 
 
 module.exports = {QuarterbackID, QuarterbackIDEquipos, QBPorEquipo, QBPorEquipoArray,
 QBPorUniversidad, QBPorUniversidadArray, IndivEquipo, IndivEquipoSB, Equipos, Universidades,
-IndivSB, IndivSBQB};
+IndivSB, IndivSBQB, SuperBowl, QBPorNombre};
