@@ -5,7 +5,17 @@ bp = flask.Blueprint("routes", __name__)
 
 @bp.route("/", methods=["GET"])
 def index():
-    return flask.render_template("index.html", title="Inicio")
+    data = {
+        "teams": {
+            "label": ["PHI", "AZ"],
+            "data": [1, 2],
+        },
+        "college": {
+            "label": ["LSU", "STL"],
+            "data": [1, 2],
+        },
+    }
+    return flask.render_template("index.html", title="Inicio", data=data)
 
 
 @bp.route("/quarterbacks", methods=["GET"])
