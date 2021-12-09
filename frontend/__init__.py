@@ -1,13 +1,10 @@
 from flask import Flask
-import flask
+from . import routes
 
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(SECRET_KEY="dev")
-
-    @app.route("/hello")
-    def hello():
-        return flask.render_template("index.html", title="Equipos")
+    app.register_blueprint(routes.bp)
 
     return app

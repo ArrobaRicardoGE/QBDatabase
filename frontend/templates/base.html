@@ -10,7 +10,7 @@
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
             crossorigin="anonymous"
         />
-        <title>QBDatabase | {% block title %}{% endblock %}</title>
+        <title>QBDatabase | {{title}} </title>
     </head>
     <body>
         <!-- Navbar -->
@@ -26,16 +26,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {{'active' if title == 'Inicio' else ''}}" href="#">Inicio</a>
+                        <a class="nav-link {{'active' if title == 'Inicio' else ''}}" href="{{url_for('routes.index')}}">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{'active' if title == 'Equipos' else ''}}" href="#">Equipos</a>
+                        <a class="nav-link {{'active' if title == 'Quarterbacks' else ''}}" href="{{url_for('routes.quarterbacks')}}">Quarterbacks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{'active' if title == 'Universidades' else ''}}" href="#">Universidades</a>
+                        <a class="nav-link {{'active' if title == 'Equipos' else ''}}" href="{{url_for('routes.teams')}}">Equipos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  {{'active' if title == 'Super Bowls' else ''}}" href="#">Super Bowls</a>
+                        <a class="nav-link {{'active' if title == 'Universidades' else ''}}" href="{{url_for('routes.colleges')}}">Universidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  {{'active' if title == 'Super Bowls' else ''}}" href="{{url_for('routes.superbowls')}}">Super Bowls</a>
                     </li>
 
                 </ul>
