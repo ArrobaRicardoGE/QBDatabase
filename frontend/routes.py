@@ -92,26 +92,28 @@ def teams():
 
 @bp.route("/teams/<string:key>", methods=["GET"])
 def team_info(key):
-    data = {
-        "key": key,
-        "name": "Philadelphia Eagles",
-        "conference": "NFC",
-        "division": "East",
-        "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
-        "quarterbacks": [
-            {
-                "qbid": 13,
-                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
-                "name": "Carson Wentz",
-            },
-            {
-                "qbid": 14,
-                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
-                "name": "Nick Foles",
-            },
-        ],
-        "superbowls": [52],
-    }
+    r = requests.post("http://localhost:3001/EquipoClave", data={"clave": key})
+    raw_data = r.json()
+    r = requests.post("http://localhost:3001/QuarterbackEquipo", data={"clave": key})
+    qb_data = r.json()["jugadores"]
+    data = None
+    if len(raw_data) > 1:
+        data = {
+            "key": raw_data["clave"],
+            "name": raw_data["ciudad"] + " " + raw_data["nombre"],
+            "conference": raw_data["conferencia"],
+            "division": raw_data["division"],
+            "logo_url": raw_data["logo_url"],
+            "quarterbacks": [
+                {
+                    "qbid": qb["ID"],
+                    "name": qb["Nombre"] + " " + qb["Apellido"],
+                    "headshot_url": qb["headshot_url"],
+                }
+                for qb in qb_data
+            ],
+            "superbowls": [sb["edicion"] for sb in raw_data["SuperBowls"]],
+        }
     return flask.render_template("team_detail.html", title="Equipos", data=data)
 
 
@@ -126,23 +128,26 @@ def colleges():
 
 @bp.route("/colleges/<int:college_id>", methods=["GET"])
 def college_info(college_id):
-    data = {
-        "college_id": college_id,
-        "name": "LSU",
-        "state": "Lousiana",
-        "quarterbacks": [
-            {
-                "qbid": 13,
-                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
-                "name": "Carson Wentz",
-            },
-            {
-                "qbid": 14,
-                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
-                "name": "Nick Foles",
-            },
-        ],
-    }
+    r = requests.post(
+        "http://localhost:3001/QuarterbackUniversidad",
+        data={"IDUniversidad": college_id},
+    )
+    raw_data = r.json()
+    data = None
+    if len(raw_data) > 1:
+        data = {
+            "college_id": college_id,
+            "name": raw_data["nombre"],
+            "state": raw_data["estado"],
+            "quarterbacks": [
+                {
+                    "qbid": qb["id"],
+                    "headshot_url": qb["headshot_url"],
+                    "name": qb["Nombre"] + " " + qb["Apellido"],
+                }
+                for qb in raw_data["jugadores"]
+            ],
+        }
     return flask.render_template(
         "college_detail.html", title="Universidades", data=data
     )
