@@ -10,7 +10,24 @@ def index():
 
 @bp.route("/quarterbacks", methods=["GET"])
 def quarterbacks():
-    return flask.render_template("quarterbacks.html", title="Quarterbacks")
+    print(flask.request.args)
+    data = {
+        "query": flask.request.args.get("q"),
+        "quarterbacks": [
+            {
+                "qbid": 13,
+                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+                "name": "Carson Wentz",
+            },
+            {
+                "qbid": 14,
+                "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
+                "name": "Nick Foles",
+            },
+        ],
+    }
+    print(flask.request.args)
+    return flask.render_template("quarterbacks.html", title="Quarterbacks", data=data)
 
 
 @bp.route("/quarterbacks/<int:qbid>", methods=["GET"])

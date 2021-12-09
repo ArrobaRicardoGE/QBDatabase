@@ -43,8 +43,8 @@
                     </li>
 
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Buscar Quarterbacks..." aria-label="Search">
+                <form class="d-flex" action="{{url_for('routes.quarterbacks')}}">
+                    <input class="form-control me-2" type="search" placeholder="Buscar Quarterbacks..." aria-label="Search" name="q">
                     <button class="btn btn-outline-light" type="submit">Buscar</button>
                 </form>
             </div>
