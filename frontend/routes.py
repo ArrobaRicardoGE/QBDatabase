@@ -1,4 +1,5 @@
 import flask
+import requests
 
 bp = flask.Blueprint("routes", __name__)
 
@@ -20,7 +21,6 @@ def index():
 
 @bp.route("/quarterbacks", methods=["GET"])
 def quarterbacks():
-    print(flask.request.args)
     data = {
         "query": flask.request.args.get("q"),
         "quarterbacks": [
@@ -36,48 +36,38 @@ def quarterbacks():
             },
         ],
     }
-    print(flask.request.args)
     return flask.render_template("quarterbacks.html", title="Quarterbacks", data=data)
 
 
 @bp.route("/quarterbacks/<int:qbid>", methods=["GET"])
 def quarterback_info(qbid):
-    data = {
-        "qbid": qbid,
-        "name": "Randall" + " " + "Cunningham",
-        "birth_date": "1970-01-01",
-        "height": 192,
-        "weight": 110,
-        "headshot_url": "http://static.nfl.com/static/content/public/static/img/fantasy/transparent/200x200/MCN017517.png",
-        "college_id": 45,
-        "college_name": "Princeton",
-        "teams": [
-            {
-                "key": "PHI",
-                "name": "Philadelphia Eagles",
-                "year": 1999,
-                "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
-            },
-            {
-                "key": "PHI",
-                "name": "Philadelphia Eagles",
-                "year": 2000,
-                "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
-            },
-            {
-                "key": "PHI",
-                "name": "Philadelphia Eagles",
-                "year": 2000,
-                "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
-            },
-            {
-                "key": "PHI",
-                "name": "Philadelphia Eagles",
-                "year": 2000,
-                "logo_url": "https://static.www.nfl.com/league/api/clubs/logos/PHI.svg",
-            },
-        ],
-    }
+    r = requests.post(
+        flask.current_app.config["API_URL"] + "/QuarterbackID", data={"ID": qbid}
+    )
+    raw_data = r.json()
+    data = None
+    if len(raw_data) > 1:
+        data = {
+            "qbid": raw_data["id_QB"],
+            "name": raw_data["nombre_QB"] + " " + raw_data["apellido"],
+            "birth_date": raw_data["fecha_nacimiento"][
+                :10
+            ],  # TODO: sacar cuenta de la edad
+            "height": f'{raw_data["estatura"] * 2.54 :.2f}',
+            "weight": f'{raw_data["peso"] / 2.205 :.2f}',
+            "headshot_url": raw_data["headshot_url"],
+            "college_id": raw_data["id_universidad"],
+            "college_name": raw_data["nombre_Universidad"],
+            "teams": [
+                {
+                    "key": team["clave"],
+                    "name": team["ciudad"] + " " + team["nombre_equipo"],
+                    "year": team["anio"],
+                    "logo_url": team["logo_url"],
+                }
+                for team in raw_data["equipos"]
+            ],
+        }
     return flask.render_template(
         "quarterback_detail.html", title="Quarterbacks", data=data
     )
