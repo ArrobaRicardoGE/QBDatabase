@@ -169,6 +169,32 @@ def college_info(college_id):
     )
 
 
+def num2roman(num):
+    num_map = [
+        (1000, "M"),
+        (900, "CM"),
+        (500, "D"),
+        (400, "CD"),
+        (100, "C"),
+        (90, "XC"),
+        (50, "L"),
+        (40, "XL"),
+        (10, "X"),
+        (9, "IX"),
+        (5, "V"),
+        (4, "IV"),
+        (1, "I"),
+    ]
+    roman = ""
+    while num > 0:
+        for i, r in num_map:
+            while num >= i:
+                roman += r
+                num -= i
+
+    return roman
+
+
 @bp.route("/superbowls", methods=["GET"])
 def superbowls():
     r = requests.post("http://localhost:3001/SuperBowl")
@@ -176,6 +202,7 @@ def superbowls():
     data = [
         {
             "edition": sb["Edicion"],
+            "roman": num2roman(sb["Edicion"]),
             "date": sb["Fecha"][0:10],
         }
         for sb in raw_data
@@ -193,6 +220,7 @@ def superbowl_info(edition):
         raw_data = r.json()
         data = {
             "edition": raw_data["edicion"],
+            "roman": num2roman(raw_data["edicion"]),
             "date": raw_data["feca"][:10],
             "stadium": raw_data["estadio_sede"],
             "city": raw_data["ciudad_sede"],
