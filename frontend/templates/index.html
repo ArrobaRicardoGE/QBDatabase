@@ -1,10 +1,19 @@
 {% extends 'base.html' %} 
 
 {% block content %}
-    <h1>Quarterbacks por Equipo</h1>
-    <canvas id="qbs_team" width="400" height="400" style="max-height: 500px;"></canvas>
-    <h1 class="mt-5">Quarterbacks por Universidad</h1>
-    <canvas class="mb-5" id="qbs_college" width="400" height="400" style="max-height: 500px;"></canvas>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h1 class="card-title">Quarterbacks por Equipo</h1>
+            <canvas id="qbs_team" width="400" height="400" style="max-height: 500px;"></canvas>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Quarterbacks por Universidad</h1>
+            <canvas id="qbs_college" width="400" height="400" style="max-height: 500px;"></canvas>
+        </div>
+    </div>
+    
 {% endblock %}
 
 {%block scripts%}
