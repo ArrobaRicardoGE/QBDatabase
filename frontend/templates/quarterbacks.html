@@ -11,7 +11,7 @@
         <h2 class="my-5"> Mostrando resultados para "{{data['query']}}"</h2>
         <div class="row row-cols-5 my-5">
             {% for qb in data['quarterbacks'] %}
-            <div class="col">
+            <div class="col mb-3">
                 <div class="card text-center">
                     <img src="{{qb['headshot_url']}}" class="card-img-top" alt="...">
                     <div class="card-body">

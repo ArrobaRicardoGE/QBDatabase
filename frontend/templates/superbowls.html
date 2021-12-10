@@ -3,7 +3,7 @@
 {%block content%}
     <div class="row row-cols-4 my-5">
         {% for sb in data%}
-        <div class="col">
+        <div class="col mb-3">
             <div class="card text-center">
                 <div class="card-body">
                     <h5 class="card-title"><a href="{{url_for('routes.superbowl_info', edition=sb['edition'])}}">{{sb['roman']}}</a></h5>

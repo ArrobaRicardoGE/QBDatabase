@@ -3,7 +3,7 @@
 {%block content%}
     <div class="row row-cols-6 my-5">
         {% for college in data%}
-        <div class="col">
+        <div class="col mb-3">
             <div class="card text-center">
                 <div class="card-body">
                     <h5 class="card-title"><a href="{{url_for('routes.college_info', college_id=college['id'])}}">{{college['name']}}</a></h5>

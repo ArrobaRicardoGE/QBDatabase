@@ -30,7 +30,7 @@
                 <div class="row row-cols-2">
                     <div class="row row-cols-3 mb-3 pe-5">
                         {% for qb in data['quarterbacks_home'] %}
-                        <div class="col">
+                        <div class="col mb-3">
                             <div class="card text-center">
                                 <img src="{{qb['headshot_url']}}" class="card-img-top" alt="...">
                                 <div class="card-body">
@@ -42,7 +42,7 @@
                     </div>
                     <div class="row row-cols-3 mb-3 ps-5">
                         {% for qb in data['quarterbacks_away'] %}
-                        <div class="col">
+                        <div class="col mb-3">
                             <div class="card text-center">
                                 <img src="{{qb['headshot_url']}}" class="card-img-top" alt="...">
                                 <div class="card-body">

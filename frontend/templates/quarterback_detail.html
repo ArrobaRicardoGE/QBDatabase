@@ -21,8 +21,8 @@
                     <h5>Equipos:</h5>
                     <div class="row row-cols-4">
                         {% for team in data['teams'] %}
-                        <div class="col">
-                            <div class="card" style="max-width: 15rem;">
+                        <div class="col mb-3">
+                            <div class="card">
                                 <img src="{{team['logo_url']}}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title"><a href="{{url_for('routes.team_info', key=team['key'])}}">{{team['name']}}</a></h5>
